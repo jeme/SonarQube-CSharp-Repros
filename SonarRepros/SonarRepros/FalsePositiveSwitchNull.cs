@@ -1,34 +1,26 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace SonarRepros
 {
-    public enum ValueType
-    {
-        Array, 
-        Integer,
-        String,
-        Null
-    }
-
-    public class ValueHolder
-    {
-        public ValueType Type { get; set; }
-        public object Value { get; set; }
-    }
 
     public class FalsePositiveSwitchNull
     {
-        public bool IsEmpty(ValueHolder holder)
+        public bool IsEmpty(JToken token)
         {
-            switch (holder?.Type)
+           switch (token?.Type)
             {
-                case ValueType.Array:
-                    return ((Array) holder.Value).Length == 0;
-                case ValueType.Integer:
-                    return ((int) holder.Value) == 0;
-                case ValueType.String:
-                    return string.IsNullOrWhiteSpace((string) holder.Value);
-                case ValueType.Null:
+                case JTokenType.Array:
+                    return !token.HasValues;
+                case JTokenType.Integer:
+                case JTokenType.Float:
+                    return 0 == (int) token;
+                case JTokenType.String:
+                    return bool.FalseString.Equals((string) token, StringComparison.OrdinalIgnoreCase);
+                case JTokenType.Boolean:
+                    return !(bool)token;
+                case JTokenType.Null:
+                case JTokenType.Undefined:
                 case null:
                     return true;
                 default:
