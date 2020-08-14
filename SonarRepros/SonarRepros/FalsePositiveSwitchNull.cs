@@ -14,9 +14,9 @@ namespace SonarRepros
                     return !token.HasValues;
                 case JTokenType.Integer:
                 case JTokenType.Float:
-                    return 0 == (int)token;
+                    return 0 == (int) token;
                 case JTokenType.String:
-                    return bool.FalseString.Equals((string)token, StringComparison.OrdinalIgnoreCase);
+                    return bool.FalseString.Equals((string) token, StringComparison.OrdinalIgnoreCase);
                 case JTokenType.Boolean:
                     return !(bool)token;
                 case JTokenType.Null:
