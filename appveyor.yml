@@ -3,7 +3,7 @@ version: 0.0.{build}
 configuration: Release
 
 before_build:
- - nuget restore
+ - nuget restore "SonarRepros\SonarRepros.sln"
 
 build_script:
  - choco install "sonarscanner-msbuild-net46" -y
