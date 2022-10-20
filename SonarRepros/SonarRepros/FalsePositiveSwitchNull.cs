@@ -96,10 +96,10 @@ namespace SonarRepros
             throw new NotImplementedException();
         }
 
-        int ICollection<T>.Count => count;
+        int ICollection<T>.Count => 0;
 
         public bool IsReadOnly { get; }
 
-        int IReadOnlyCollection<T>.Count => count1;
+        int IReadOnlyCollection<T>.Count => 0;
     }
 }
