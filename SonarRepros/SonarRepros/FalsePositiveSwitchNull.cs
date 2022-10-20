@@ -1,11 +1,17 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Dynamic;
 
 namespace SonarRepros
 {
 
     public class FalsePositiveSwitchNull
     {
+        public readonly FakeReadOnly<int> fakCollectione = new FakeReadOnly<int>();
+        public readonly TrueReadOnly<int> trueCollection = new TrueReadOnly<int>();
+
         public bool IsEmpty(JToken token)
         {
             switch (token?.Type)
@@ -36,5 +42,64 @@ namespace SonarRepros
                 (token.Type == JTokenType.String && string.IsNullOrWhiteSpace((string)token));
         }
 
+    }
+
+    public class TrueReadOnly<T> : IReadOnlyCollection<T>
+    {
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int Count { get; }
+    }
+
+    public class FakeReadOnly<T> : ICollection<T>, IReadOnlyCollection<T>
+    {
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void Add(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        int ICollection<T>.Count => count;
+
+        public bool IsReadOnly { get; }
+
+        int IReadOnlyCollection<T>.Count => count1;
     }
 }
