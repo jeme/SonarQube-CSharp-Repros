@@ -9,7 +9,7 @@ namespace SonarRepros
 
     public class FalsePositiveSwitchNull
     {
-        public static readonly FakeReadOnly<int> fakeCollectione = new FakeReadOnly<int>();
+        public static readonly FakeReadOnly<int> fakeCollectione = new FakeReadOnly<int>(true);
         public static readonly TrueReadOnly<int> trueCollection = new TrueReadOnly<int>();
 
         public bool IsEmpty(JToken token)
@@ -61,6 +61,11 @@ namespace SonarRepros
 
     public class FakeReadOnly<T> : ICollection<T>, IReadOnlyCollection<T>
     {
+        public FakeReadOnly(bool isReadOnly = true)
+        {
+            IsReadOnly = isReadOnly;
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
             throw new NotImplementedException();
@@ -98,7 +103,7 @@ namespace SonarRepros
 
         int ICollection<T>.Count => 0;
 
-        public bool IsReadOnly { get; } = true;
+        public bool IsReadOnly { get; }
 
         int IReadOnlyCollection<T>.Count => 0;
     }
