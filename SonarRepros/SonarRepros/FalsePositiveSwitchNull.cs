@@ -98,7 +98,7 @@ namespace SonarRepros
 
         int ICollection<T>.Count => 0;
 
-        public bool IsReadOnly { get; }
+        public bool IsReadOnly { get; } = true;
 
         int IReadOnlyCollection<T>.Count => 0;
     }
