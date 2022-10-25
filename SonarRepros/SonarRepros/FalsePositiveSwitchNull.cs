@@ -9,7 +9,7 @@ namespace SonarRepros
 
     public class FalsePositiveSwitchNull
     {
-        public static readonly FakeReadOnly<int> fakCollectione = new FakeReadOnly<int>();
+        public static readonly FakeReadOnly<int> fakeCollectione = new FakeReadOnly<int>();
         public static readonly TrueReadOnly<int> trueCollection = new TrueReadOnly<int>();
 
         public bool IsEmpty(JToken token)
