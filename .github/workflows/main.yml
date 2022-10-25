@@ -22,7 +22,7 @@ jobs:
           dotnet-version: 6.0.x
           
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./SonarRepros
         
       - name: SonarScanner for .NET 6 with pull request decoration support
         uses: highbyte/sonarscan-dotnet@v2.1.2
@@ -31,6 +31,8 @@ jobs:
           sonarProjectKey: "dotJEM_SonarQube-CSharp-Repros"
           # The name of the SonarQube project
           sonarProjectName: "SonarQube-CSharp-Repros"
+          # Optional command arguments to dotnet build
+          dotnetBuildArguments: ./SonarRepros
           # The name of the SonarQube organization in SonarCloud. For hosted SonarQube, skip this setting.
           sonarOrganization: dotjem
           # Optional. Set to 1 or true to not run 'dotnet test' command
@@ -39,3 +41,4 @@ jobs:
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
